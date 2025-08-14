@@ -5,14 +5,14 @@ options: list = [
     CompileTimeOption(
         key="enable_fts5",
         name="FTS5",
-        help="Enable SQLite's FTS5 extension which provides full-test search functionality to database applications",
+        help="Enable SQLite's FTS5 extension which provides full-text search functionality to database applications",
         define="SQLITE_ENABLE_FTS5",
     ),
     CompileTimeOption(
         key="enable_math_functions",
         name="MATH_FUNCTIONS",
         help="Enable SQLite's Built-in Mathematical SQL Functions",
-        define="SQLITE_ENABLE_MATH_FUNCTIONS",
+        define=["SQLITE_ENABLE_MATH_FUNCTIONS", "ENABLE_MATH_FUNCTIONS"],
     ),
 ]
 
