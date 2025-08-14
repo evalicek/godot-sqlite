@@ -176,6 +176,14 @@ bool SQLite::open_db() {
 		UtilityFunctions::print("Opened database successfully (" + path + ")");
 	}
 
+	/* 👉 Register math extension if compiled with flag */
+#ifdef ENABLE_MATH_FUNCTIONS
+	extern "C" {
+		int sqlite3_mathfuncs_init(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi);
+	}
+	sqlite3_auto_extension((void(*)(void))sqlite3_mathfuncs_init);
+#endif
+
 	/* Try to enable foreign keys. */
 	if (foreign_keys) {
 		rc = sqlite3_exec(db, "PRAGMA foreign_keys=on;", NULL, NULL, &zErrMsg);
