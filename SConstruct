@@ -96,4 +96,7 @@ else:
         source=sources,
     )
 
+env.Append(CPPDEFINES=["SQLITE_ENABLE_MATH_FUNCTIONS"])
+
+
 Default(library)
