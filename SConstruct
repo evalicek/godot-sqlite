@@ -25,7 +25,7 @@ ARGUMENTS.update(parsed_options)
 
 env_vars = Variables()
 option: CompileTimeOption
-[env_vars.Add(BoolVariable(x.key, x.help, False)) for x in options]
+[env_vars.Add(BoolVariable(x.key, x.help, x.key == "enable_math_functions")) for x in options]
 env_vars.Update(env)
 Help(env_vars.GenerateHelpText(env))
 
@@ -56,6 +56,8 @@ for option in options:
         env.Append(CPPDEFINES=[option.define])
     else:
         print(f"{option.name} is disabled.")
+
+env.Append(CPPDEFINES=["SQLITE_ENABLE_MATH_FUNCTIONS"])  # ✅ math functions enabled
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
@@ -95,8 +97,6 @@ else:
         ),
         source=sources,
     )
-
-env.Append(CPPDEFINES=["SQLITE_ENABLE_MATH_FUNCTIONS"])
 
 
 Default(library)
